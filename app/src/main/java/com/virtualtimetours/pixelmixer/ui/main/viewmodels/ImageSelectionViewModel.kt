@@ -21,10 +21,17 @@ class ImageSelectionViewModel : ViewModel(), Target {
     val imageBitmap = MutableLiveData<Bitmap?>(null)
     val unsplashPhoto = MutableLiveData<UnsplashPhoto>(null)
     val attributeButtonVisibility = MutableLiveData(View.GONE)
+    val splashPhotographerName = MutableLiveData("")
+    val splashPhotoUrl = MutableLiveData("")
+    val splashPhotoPublishDate = MutableLiveData("")
+    val attributesVisibility = MutableLiveData(View.GONE)
 
     fun setImage(photo: UnsplashPhoto) {
         unsplashPhoto.postValue(photo)
         Picasso.get().load(photo.urls.full).into(this)
+        splashPhotographerName.postValue(photo.user.name)
+        splashPhotoUrl.postValue(photo.urls.full)
+        splashPhotoPublishDate.postValue(photo.created_at)
     }
 
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
@@ -43,5 +50,12 @@ class ImageSelectionViewModel : ViewModel(), Target {
 
     companion object {
         val TAG: String = ImageSelectionFragment::javaClass.name
+    }
+
+    fun onFABClick() {
+        attributesVisibility.postValue(when(attributesVisibility.value) {
+            View.VISIBLE -> View.GONE
+            else -> View.VISIBLE
+        })
     }
 }

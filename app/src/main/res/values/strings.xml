@@ -13,4 +13,7 @@
     <!-- Image load strings -->
     <string name="load_failure">Failed to load image</string>
     <string name="image_content_description">Image to use for the game</string>
+    <string name="photographer_label">Photographer</string>
+    <string name="image_publish_date_label">Published:</string>
+    <string name="image_uri_label">Image Url:</string>
 </resources>

@@ -22,14 +22,23 @@ class ImageSelectionFragment : Fragment() {
         binding = ImageSelectionFragmentBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this).get(ImageSelectionViewModel::class.java)
-        binding.getImagesButton.setOnClickListener() {
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
+        binding.getImagesButton.setOnClickListener {
             (activity as MainActivity).launchImagePicker(viewModel)
         }
+
+        binding.imageView.setOnClickListener {
+            (activity as MainActivity).navigateToGameScreen()
+        }
+
         viewModel.imageBitmap.observe(viewLifecycleOwner) {
             if (null != it) {
                 binding.imageView.setImageBitmap(it)
             }
         }
+
         return binding.root
     }
 
