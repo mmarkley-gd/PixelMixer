@@ -1,4 +1,4 @@
-package com.example.pixelmixer.ui.main
+package com.virtualtimetours.pixelmixer.ui.main.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pixelmixer.R
+import com.virtualtimetours.pixelmixer.ui.main.viewmodels.MainViewModel
 
 class MainFragment : Fragment() {
 

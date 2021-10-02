@@ -1,4 +1,4 @@
-package com.example.pixelmixer.ui.main
+package com.virtualtimetours.pixelmixer.ui.main.viewmodels
 
 import androidx.lifecycle.ViewModel
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/imageSelectionFragment">
+
+    <fragment
+        android:id="@+id/imageSelectionFragment"
+        android:name="com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment"
+        android:label="ImageSelectionFragment" >
+        <action
+            android:id="@+id/action_imageSelectionFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.virtualtimetours.pixelmixer.ui.main.fragments.GameFragment"
+        android:label="GameFragment" />
+</navigation>

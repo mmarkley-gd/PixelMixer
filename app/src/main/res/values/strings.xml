@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PixelMixer</string>
+    <string name="welcome_string">Welcome to PixelMixer</string>
+    <string name="retrieve_label">Click here to get some pictures</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- GameFragment strings -->
+    <string name="total_moves_label">Total Moves:</string>
+    <string name="elapsed_time_label">Elapsed Time:</string>
+    <string name="get_images">Get Image</string>
+
+    <!-- Image load strings -->
+    <string name="load_failure">Failed to load image</string>
 </resources>

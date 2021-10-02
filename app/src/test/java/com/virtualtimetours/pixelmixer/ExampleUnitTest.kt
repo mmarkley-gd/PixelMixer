@@ -1,4 +1,4 @@
-package com.example.pixelmixer
+package com.virtualtimetours.pixelmixer
 
 import org.junit.Test
 
