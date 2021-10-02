@@ -16,6 +16,7 @@
         tools:context="com.virtualtimetours.pixelmixer.ui.main.fragments.GameFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/elapsed_time_label"
-                app:layout_constraintRight_toRightOf="@+id/elapsed_time_value"
+                app:layout_constraintRight_toLeftOf="@+id/elapsed_time_value"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -57,6 +58,137 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TableLayout
+            android:id="@+id/game_board"
+            android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
+            android:layout_marginVertical="@dimen/primary_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/info_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+           <TableRow
+               android:id="@+id/row_one"
+               android:layout_weight="4"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <ImageView
+                   android:id="@+id/row_one_column_one"
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:contentDescription="@string/row_content"
+                   android:layout_height="wrap_content"/>
+               <ImageView
+                   android:id="@+id/row_one_column_two"
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:contentDescription="@string/row_content"
+                   android:layout_height="wrap_content"/>
+               <ImageView
+                   android:id="@+id/row_one_column_three"
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:contentDescription="@string/row_content"
+                   android:layout_height="wrap_content"/>
+               <ImageView
+                   android:id="@+id/row_one_column_four"
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:contentDescription="@string/row_content"
+                   android:layout_height="wrap_content"/>
+           </TableRow>
+            <TableRow
+                android:id="@+id/row_two"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/row_two_column_one"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_two_column_two"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_two_column_three"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_two_column_four"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow
+                android:id="@+id/row_three"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/row_three_column_one"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_three_column_two"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_three_column_three"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_three_column_four"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow
+                android:id="@+id/row_four"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/row_four_column_one"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_four_column_two"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_four_column_three"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/row_four_column_four"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:contentDescription="@string/row_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

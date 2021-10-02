@@ -9,6 +9,7 @@
     <string name="total_moves_label">Total Moves:</string>
     <string name="elapsed_time_label">Elapsed Time:</string>
     <string name="get_images">Get Image</string>
+    <string name="row_content">Game Piece</string>
 
     <!-- Image load strings -->
     <string name="load_failure">Failed to load image</string>

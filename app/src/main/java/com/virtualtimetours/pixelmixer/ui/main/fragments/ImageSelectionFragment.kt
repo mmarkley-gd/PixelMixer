@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.pixelmixer.databinding.ImageSelectionFragmentBinding
 import com.virtualtimetours.pixelmixer.MainActivity
 import com.virtualtimetours.pixelmixer.ui.main.viewmodels.ImageSelectionViewModel
 
 class ImageSelectionFragment : Fragment() {
+    val viewModel : ImageSelectionViewModel by activityViewModels()
 
-    private lateinit var viewModel: ImageSelectionViewModel
     private lateinit var binding: ImageSelectionFragmentBinding
 
     override fun onCreateView(
@@ -21,7 +22,6 @@ class ImageSelectionFragment : Fragment() {
     ): View {
         binding = ImageSelectionFragmentBinding.inflate(inflater)
 
-        viewModel = ViewModelProvider(this).get(ImageSelectionViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
