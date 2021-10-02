@@ -41,8 +41,21 @@
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/image_content_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/get_images_button" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:visibility="@{viewModel.attributeButtonVisibility}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/primary_horizontal_margin"
+            android:layout_marginBottom="@dimen/primary_vertical_margin"
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/ic_baseline_attribution_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

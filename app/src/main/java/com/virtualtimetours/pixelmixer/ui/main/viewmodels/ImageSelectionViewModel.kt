@@ -5,10 +5,12 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
 import com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment
 import java.io.File
 import java.io.FileOutputStream
@@ -17,16 +19,18 @@ import java.util.*
 class ImageSelectionViewModel : ViewModel(), Target {
 
     val imageBitmap = MutableLiveData<Bitmap?>(null)
+    val unsplashPhoto = MutableLiveData<UnsplashPhoto>(null)
+    val attributeButtonVisibility = MutableLiveData(View.GONE)
 
-    fun setImage(uri: String?) {
-        if(null != uri) {
-            Picasso.get().load(uri).into(this)
-        }
+    fun setImage(photo: UnsplashPhoto) {
+        unsplashPhoto.postValue(photo)
+        Picasso.get().load(photo.urls.full).into(this)
     }
 
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
         Log.i(TAG, "loaded bitmap")
         imageBitmap.postValue(bitmap)
+        attributeButtonVisibility.postValue(View.VISIBLE)
     }
 
     override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {

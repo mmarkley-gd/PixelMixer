@@ -14,7 +14,7 @@ import com.virtualtimetours.pixelmixer.ui.main.viewmodels.ImageSelectionViewMode
 
 class MainActivity : AppCompatActivity() {
 
-    var imageViewModel : ImageSelectionViewModel? = null
+    var imageViewModel: ImageSelectionViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +29,14 @@ class MainActivity : AppCompatActivity() {
     val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) {
-        if(Activity.RESULT_OK == it.resultCode) {
-            val photos: ArrayList<UnsplashPhoto> = it.data?.getParcelableArrayListExtra(UnsplashPickerActivity.EXTRA_PHOTOS)!!
-            for(photo in photos) {
+        if (Activity.RESULT_OK == it.resultCode) {
+            val photos: ArrayList<UnsplashPhoto> =
+                it.data?.getParcelableArrayListExtra(UnsplashPickerActivity.EXTRA_PHOTOS)!!
+            if (!photos.isNullOrEmpty()) {
+                val photo = photos.first()
                 Log.i("MainActivity", "${photo.id} ${photo.description} ${photo.user.name}")
                 Log.i("MainActivity", "${photo.urls.full}")
-                imageViewModel?.setImage(photo.urls.full)
+                imageViewModel?.setImage(photo)
             }
         } else {
             Toast.makeText(this, getString(R.string.load_failure), Toast.LENGTH_LONG).show()

@@ -12,4 +12,5 @@
 
     <!-- Image load strings -->
     <string name="load_failure">Failed to load image</string>
+    <string name="image_content_description">Image to use for the game</string>
 </resources>
