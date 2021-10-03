@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.virtualtimetours.pixelmixer.PixelMixerApplication
 import com.virtualtimetours.pixelmixer.ui.main.GameTile
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import kotlin.random.Random
 
@@ -18,6 +20,9 @@ import kotlin.random.Random
 class GameViewModel : ViewModel() {
 
     private var totalMoves = 0
+    private var timer: Timer? = null
+    private var elapsedMilliseconds: Long = 0
+
     val totalMovesText = MutableLiveData("0")
     val elapsedTime = MutableLiveData("1/1/1970")
     private val gameGrid = MutableLiveData<List<List<GameTile>>>(listOf())
@@ -71,7 +76,7 @@ class GameViewModel : ViewModel() {
     val positionSixteenTagValue = MutableLiveData<GameTile>(null)
     val positionSixteenDebugTextValue = MutableLiveData("16")
 
-    val debugDisplayTextVisibility = MutableLiveData(View.VISIBLE)
+    val tileHintsTextVisibility = MutableLiveData(View.VISIBLE)
 
     private var gameTiles: MutableList<GameTile> = mutableListOf()
 
@@ -88,9 +93,9 @@ class GameViewModel : ViewModel() {
      */
     fun fractureImage(bitmap: Bitmap, rows: Int, columns: Int) {
         executor.execute {
+            gameTiles.clear()
             val width = bitmap.width.toDouble()
             val height = bitmap.height.toDouble()
-            val resultsArray = mutableListOf<List<GameTile>>()
             var emptyBitmapDrawable: BitmapDrawable? = null
             try {
                 var count = 0
@@ -107,13 +112,11 @@ class GameViewModel : ViewModel() {
 //                    Log.i(TAG, "processing row $rowCount")
                     rowCount++
                     var columnCount = 0
-                    val targetList = mutableListOf<BitmapDrawable>()
                     var x = 0.0
                     while (x < width) {
                         if (x >= width) {
                             continue
                         }
-//                        Log.i(TAG, "processing column $columnCount")
                         columnCount++
                         if (x + horizontalStep > width) {
                             horizontalStep = width - x.toInt()
@@ -125,25 +128,25 @@ class GameViewModel : ViewModel() {
                         val yCoord = y.toInt()
                         val copyWidth = horizontalStep.toInt()
                         val copyHeight = verticalStep.toInt()
-//                        Log.i(TAG, "Creating tile: $tileCount")
                         val smallBitmap =
                             Bitmap.createBitmap(bitmap, xCoord, yCoord, copyWidth, copyHeight)
                         val drawable =
                             BitmapDrawable(PixelMixerApplication.context.resources, smallBitmap)
                         if(null == emptyBitmapDrawable) {
-                            smallBitmap.eraseColor(Color.WHITE)
-                            emptyBitmapDrawable = BitmapDrawable(PixelMixerApplication.context.resources, smallBitmap)
+                            val emptyBitmap = Bitmap.createBitmap(smallBitmap)
+                            emptyBitmap.eraseColor(Color.WHITE)
+                            emptyBitmapDrawable = BitmapDrawable(PixelMixerApplication.context.resources, emptyBitmap)
                         }
                         val gameTile = when(tileCount) {
                             16 -> {
                                 emptyTile = GameTile(emptyBitmapDrawable, tileCount++)
                                 emptyTile
+                                break
                             }
                             else -> GameTile(drawable, tileCount++)
                         }
-                        Log.i(TAG, "created tile $gameTile for index $tileCount-1")
-                        gameTiles.add(gameTile!!)
-                        targetList.add(drawable)
+                        Log.i(TAG, "created tile $gameTile for index ${tileCount-1}")
+                        gameTiles.add(gameTile)
                         x += horizontalStep
                     }
                     horizontalStep = width / columns
@@ -157,33 +160,77 @@ class GameViewModel : ViewModel() {
 
             emptyTile = GameTile(emptyBitmapDrawable!!, 16)
 
-            var shuffled = shuffleTiles(gameTiles)
-            while (!newShuffleIsSolvable(shuffled)) {
-                shuffled = shuffleTiles(gameTiles)
-            }
-            gameBoardRowOne.clear()
-            gameBoardRowOne.addAll(shuffled.subList(0, 4))
+            shuffleTilesToWinnableGame(gameTiles)
 
-            gameBoardRowTwo.clear()
-            gameBoardRowTwo.addAll(shuffled.subList(4, 8))
-
-            gameBoardRowThree.clear()
-            gameBoardRowThree.addAll(shuffled.subList(8, 12))
-
-            gameBoardRowFour.clear()
-            gameBoardRowFour.addAll(shuffled.subList(12, 16))
-
-            resultsArray.clear()
-            resultsArray.add(gameBoardRowOne)
-            resultsArray.add(gameBoardRowTwo)
-            resultsArray.add(gameBoardRowThree)
-            resultsArray.add(gameBoardRowFour)
-            updateRowOne(gameBoardRowOne)
-            updateRowTwo(gameBoardRowTwo)
-            updateRowThree(gameBoardRowThree)
-            updateRowFour(gameBoardRowFour)
-            gameGrid.postValue(resultsArray)
         }
+    }
+
+    private fun getTimerTask(): TimerTask {
+        return object: TimerTask() {
+            override fun run() {
+                elapsedMilliseconds += 1000
+                val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
+                val date = Date(elapsedMilliseconds)
+                dateFormat.timeZone = TimeZone.getDefault()
+                val timeString = dateFormat.format(date)
+                elapsedTime.postValue(timeString)
+            }
+        }
+    }
+    private fun shuffleTilesToWinnableGame(tiles: List<GameTile>) {
+        val tilesToShuffle = mutableListOf<GameTile>()
+        val resultsArray = mutableListOf<List<GameTile>>()
+        tilesToShuffle.addAll(tiles)
+        var shuffled = shuffleTiles(tilesToShuffle)
+        while (!newShuffleIsSolvable(shuffled)) {
+            tilesToShuffle.clear()
+            tilesToShuffle.addAll(tiles)
+            shuffled = shuffleTiles(tilesToShuffle)
+        }
+        shuffled.add(emptyTile!!)
+        gameBoardRowOne.clear()
+        gameBoardRowOne.addAll(shuffled.subList(0, 4))
+
+        gameBoardRowTwo.clear()
+        gameBoardRowTwo.addAll(shuffled.subList(4, 8))
+
+        gameBoardRowThree.clear()
+        gameBoardRowThree.addAll(shuffled.subList(8, 12))
+
+        gameBoardRowFour.clear()
+        gameBoardRowFour.addAll(shuffled.subList(12, 16))
+
+        Log.i(TAG, "fractureImage complete")
+        debugDumpGameGrid()
+
+        resultsArray.clear()
+        resultsArray.add(gameBoardRowOne)
+        resultsArray.add(gameBoardRowTwo)
+        resultsArray.add(gameBoardRowThree)
+        resultsArray.add(gameBoardRowFour)
+        updateRowOne(gameBoardRowOne)
+        updateRowTwo(gameBoardRowTwo)
+        updateRowThree(gameBoardRowThree)
+        updateRowFour(gameBoardRowFour)
+        gameGrid.postValue(resultsArray)
+        timer = Timer()
+        timer?.scheduleAtFixedRate(getTimerTask(), 1000, 1000)
+    }
+
+    private fun shuffleTiles(listToShuffle: MutableList<GameTile>): MutableList<GameTile> {
+        val result = mutableListOf<GameTile>()
+        result.addAll(listToShuffle)
+        var n = result.size
+
+        while (n > 1) {
+            val r: Int = Random.nextInt(n--)
+            val tmp = result[r]
+
+            result[r] = result[n]
+            result[n] = tmp
+        }
+
+        return result
     }
 
     private fun updateRowOne(tiles: List<GameTile>) {
@@ -267,21 +314,6 @@ class GameViewModel : ViewModel() {
         totalMovesText.postValue(totalMoves.toString())
     }
 
-    private fun shuffleTiles(listToShuffle: MutableList<GameTile>): List<GameTile> {
-        val result = mutableListOf<GameTile>()
-        result.addAll(listToShuffle)
-        var n = result.size
-
-        while (n > 1) {
-            val r: Int = Random.nextInt(n--)
-            val tmp = result[r]
-
-            result[r] = result[n]
-            result[n] = tmp
-        }
-
-        return result
-    }
 
     /**
      * Validates that the shuffled [listToCheck] can actually be solved in a 15-square puzzle
@@ -301,11 +333,16 @@ class GameViewModel : ViewModel() {
     }
 
     /**
-     * Check the given [listToCheck] and determine if it meets the criteria for a completed
-     * game. Returns true if the game is solved, false otherwise
+     * Check and determine if the current puzzle has been solved
+     * Returns true if the puzzle is solved, false otherwise
      */
-    private fun isSolved(listToCheck: List<GameTile>): Boolean {
-        if (listToCheck[listToCheck.size - 1].position != 0) // if blank tile is not in the solved position ==> not solved
+    fun isSolved(): Boolean {
+        val listToCheck = mutableListOf<GameTile>()
+        listToCheck.addAll(gameBoardRowOne)
+        listToCheck.addAll(gameBoardRowTwo)
+        listToCheck.addAll(gameBoardRowThree)
+        listToCheck.addAll(gameBoardRowFour)
+        if (listToCheck[listToCheck.size - 1].position != 16) // if blank tile is not in the solved position ==> not solved
             return false
         for (i in listToCheck.size - 1 downTo 0) {
             if (listToCheck[i].position != (i + 1)) return false
@@ -324,8 +361,28 @@ class GameViewModel : ViewModel() {
         val emptyTileRowIndex: Int = getRowIndex(emptyTile)
         val emptyTileColumnIndex: Int = getColumnIndex(emptyTile)
 
-        return (tileRowIndex == emptyTileRowIndex
-                || tileColumnIndex == emptyTileColumnIndex)
+        val result = when(tileRowIndex == emptyTileRowIndex
+                || tileColumnIndex == emptyTileColumnIndex) {
+            true -> {
+                when {
+                    tileRowIndex == emptyTileRowIndex -> {
+                        ((tileColumnIndex + 1) == emptyTileColumnIndex
+                                || (tileColumnIndex - 1) == emptyTileColumnIndex)
+                    }
+                    tileColumnIndex == emptyTileColumnIndex -> {
+                        (tileRowIndex + 1 == emptyTileRowIndex
+                                || tileRowIndex - 1 == emptyTileRowIndex)
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+            false -> false
+        }
+
+        Log.i(TAG, "tileCanBeDragged stri: $tileRowIndex stci: $tileColumnIndex dtri: $emptyTileRowIndex dtci: $emptyTileColumnIndex $result")
+        return result
     }
 
     fun swapTiles(sourceTile: GameTile, destinationTile: GameTile) {
@@ -336,6 +393,7 @@ class GameViewModel : ViewModel() {
         val sourceTileColumnIndex: Int = getColumnIndex(sourceTile)
         val destinationTileRowIndex: Int = getRowIndex(destinationTile)
         val destinationTileColumnIndex: Int = getColumnIndex(destinationTile)
+        Log.i(TAG, "swap stri: $sourceTileRowIndex stci: $sourceTileColumnIndex dtri: $destinationTileRowIndex dtci: $destinationTileColumnIndex")
         if (sourceTileRowIndex == destinationTileRowIndex) {
             when (sourceTileRowIndex) {
                 1 -> {
@@ -364,24 +422,24 @@ class GameViewModel : ViewModel() {
                 }
             }
         } else {
-            val emptyRow = when (destinationTileRowIndex) {
+            val destinationRow = when (destinationTileRowIndex) {
                 1 -> gameBoardRowOne
                 2 -> gameBoardRowTwo
                 3 -> gameBoardRowThree
                 4 -> gameBoardRowFour
                 else -> null
             }
-            val targetRow = when (sourceTileRowIndex) {
+            val sourceRow = when (sourceTileRowIndex) {
                 1 -> gameBoardRowOne
                 2 -> gameBoardRowTwo
                 3 -> gameBoardRowThree
                 4 -> gameBoardRowFour
                 else -> null
             }
-            if (emptyRow != null && targetRow != null) {
+            if (destinationRow != null && sourceRow != null) {
                 Log.i(TAG, "moving tile from row $sourceTileRowIndex to row $destinationTileRowIndex")
-                emptyRow[destinationTileColumnIndex] = sourceTile
-                targetRow[sourceTileColumnIndex] = destinationTile
+                destinationRow[destinationTileColumnIndex] = sourceTile
+                sourceRow[sourceTileColumnIndex] = destinationTile
                 when (destinationTileRowIndex) {
                     1 -> updateRowOne(gameBoardRowOne)
                     2 -> updateRowTwo(gameBoardRowTwo)
@@ -399,9 +457,14 @@ class GameViewModel : ViewModel() {
                     else -> {
                     }
                 }
+            } else {
+                Log.w(TAG, "row error destinationRow: $destinationRow sourceRow: $sourceRow")
             }
         }
 
+
+        Log.i(TAG, "swap tiles complete complete")
+        debugDumpGameGrid()
     }
 
     private fun getRowIndex(tile: GameTile?): Int {
@@ -439,5 +502,19 @@ class GameViewModel : ViewModel() {
     companion object {
         val TAG = GameViewModel::javaClass.name
         val executor = ScheduledThreadPoolExecutor(2)
+    }
+
+    private fun debugDumpGameGrid() {
+        Log.i(TAG, "Row 1 ${gameBoardRowOne[0].position} ${gameBoardRowOne[1].position} ${gameBoardRowOne[2].position} ${gameBoardRowOne[3].position}")
+        Log.i(TAG, "Row 2 ${gameBoardRowTwo[0].position} ${gameBoardRowTwo[1].position} ${gameBoardRowTwo[2].position} ${gameBoardRowTwo[3].position}")
+        Log.i(TAG, "Row 3 ${gameBoardRowThree[0].position} ${gameBoardRowThree[1].position} ${gameBoardRowThree[2].position} ${gameBoardRowThree[3].position}")
+        Log.i(TAG, "Row 4 ${gameBoardRowFour[0].position} ${gameBoardRowFour[1].position} ${gameBoardRowFour[2].position} ${gameBoardRowFour[3].position}")
+    }
+
+    fun toggleTileHints() {
+        when(tileHintsTextVisibility.value == View.VISIBLE) {
+            true -> tileHintsTextVisibility.postValue(View.GONE)
+            else -> tileHintsTextVisibility.postValue(View.VISIBLE)
+        }
     }
 }

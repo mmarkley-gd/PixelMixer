@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionOneDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionTwoDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionThreeDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionFourDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
 
@@ -186,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionFiveDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -206,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionSixDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -226,7 +226,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionSevenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -246,7 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionEightDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
 
@@ -275,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionNineDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -295,7 +295,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionTenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -315,7 +315,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionElevenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -335,7 +335,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionTwelveDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
 
@@ -364,7 +364,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionThirteenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -384,7 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionFourteenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -404,7 +404,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionFifteenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -424,7 +424,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.positionSixteenDebugTextValue}"
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
         </TableLayout>
