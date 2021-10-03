@@ -81,84 +81,83 @@
                 android:weightSum="4">
 
                 <RelativeLayout
+                    android:id="@+id/row_one_column_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionOneTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_one_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneOneBitmap}"
-                        android:tag="1" />
+                        android:src="@{viewModel.positionOneOneBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionOneTagValue}" />
+                        android:text="@{viewModel.positionOneDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/row_one_column_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionTwoTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_one_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneTwoBitmap}"
-                        android:tag="2" />
+                        android:src="@{viewModel.positionOneTwoBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionTwoTagValue}" />
+                        android:text="@{viewModel.positionTwoDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/row_one_column_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionThreeTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_one_column_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneThreeBitmap}"
-                        android:tag="3" />
+                        android:src="@{viewModel.positionOneThreeBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionThreeTagValue}" />
+                        android:text="@{viewModel.positionThreeDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/row_one_column_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionFourTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_one_column_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneFourBitmap}"
-                        android:tag="4" />
+                        android:src="@{viewModel.positionOneFourBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFourTagValue}" />
+                        android:text="@{viewModel.positionFourDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
 
@@ -170,83 +169,85 @@
                 android:layout_weight="1"
                 android:weightSum="4">
 
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                <RelativeLayout
                     android:id="@+id/row_two_column_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionTwoOneBitmap}"
-                    android:tag="5" />
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionFiveTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionFiveTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionTwoOneBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionFiveDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_two_column_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionTwoTwoBitmap}"
-                    android:tag="6" />
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionSixTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionSixTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionTwoTwoBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionSixDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_two_column_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionTwoThreeBitmap}"
-                    android:tag="7" />
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionSevenTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionSevenTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionTwoThreeBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionSevenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_two_column_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionTwoFourBitmap}"
-                    android:tag="8" />
+                    android:tag="@{viewModel.positionEightTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionEightTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionTwoFourBitmap}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionEightDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
             </TableRow>
 
             <TableRow
@@ -257,85 +258,85 @@
                 android:layout_weight="1"
                 android:weightSum="4">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                <RelativeLayout
                     android:id="@+id/row_three_column_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionThreeOneBitmap}"
-                    android:tag="9" />
+                android:tag="@{viewModel.positionNineTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionNineTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionThreeOneBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionNineDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_three_column_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionThreeTwoBitmap}"
-                    android:tag="10" />
+                    android:tag="@{viewModel.positionTenTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionTenTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionThreeTwoBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionTenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_three_column_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionThreeThreeBitmap}"
-                    android:tag="11" />
+                    android:tag="@{viewModel.positionElevenTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionElevenTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionThreeThreeBitmap}" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionElevenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/row_three_column_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionThreeFourBitmap}"
-                    android:tag="12" />
+                    android:tag="@{viewModel.positionTwelveTagValue}">
 
-                <TextView
-                    android:visibility="@{viewModel.debugDisplayTextVisibility}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.positionTwelveTagValue}" />
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionThreeFourBitmap}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionTwelveDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
+                </RelativeLayout>
             </TableRow>
 
             <TableRow
@@ -347,84 +348,83 @@
                 android:weightSum="4">
 
                 <RelativeLayout
+                    android:id="@+id/row_four_column_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionThirteenTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_four_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourOneBitmap}"
-                        android:tag="13" />
+                        android:src="@{viewModel.positionFourOneBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionThirteenTagValue}" />
+                        android:text="@{viewModel.positionThirteenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/row_four_column_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionFourteenTagValue}">
 
                     <ImageView
-                        android:id="@+id/row_four_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/row_content"
                         android:src="@{viewModel.positionFourTwoBitmap}" />
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFourteenTagValue}" />
+                        android:text="@{viewModel.positionFourteenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/row_four_column_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:tag="@{viewModel.positionFifteenTagValue}" >
 
                     <ImageView
-                        android:id="@+id/row_four_column_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourThreeBitmap}"
-                        android:tag="15" />
+                        android:src="@{viewModel.positionFourThreeBitmap}"/>
 
                     <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFifteenTagValue}" />
+                        android:text="@{viewModel.positionFifteenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                <ImageView
                     android:id="@+id/row_four_column_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/row_content"
-                    android:src="@{viewModel.positionFourFourBitmap}"
-                    android:tag="16" />
+                    android:tag="@{viewModel.positionSixteenTagValue}">
 
-                    <TextView
-                        android:visibility="@{viewModel.debugDisplayTextVisibility}"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionSixteenTagValue}" />
+                        android:contentDescription="@string/row_content"
+                        android:src="@{viewModel.positionFourFourBitmap}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.positionSixteenDebugTextValue}"
+                        android:visibility="@{viewModel.debugDisplayTextVisibility}" />
                 </RelativeLayout>
             </TableRow>
         </TableLayout>

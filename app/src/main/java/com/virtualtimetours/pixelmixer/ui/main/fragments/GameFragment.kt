@@ -2,6 +2,8 @@ package com.virtualtimetours.pixelmixer.ui.main.fragments
 
 import android.content.ClipData
 import android.content.ClipDescription
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.util.Log
 import android.view.DragEvent
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pixelmixer.databinding.FragmentGameBinding
+import com.virtualtimetours.pixelmixer.ui.main.GameTile
 import com.virtualtimetours.pixelmixer.ui.main.viewmodels.GameViewModel
 import com.virtualtimetours.pixelmixer.ui.main.viewmodels.ImageSelectionViewModel
 
@@ -93,14 +96,22 @@ class GameFragment : Fragment(), View.OnLongClickListener, View.OnDragListener {
 
     override fun onLongClick(targetView: View?): Boolean {
         if (targetView != null) {
-            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
-            val tag = "targetView.tag.toString()"
-            Log.i(TAG, "starting drag on $tag")
-            val item = ClipData.Item(tag)
-            val data = ClipData(tag, mimeTypes, item)
-            val dragShadowBuilder = View.DragShadowBuilder(targetView)
-            targetView.startDragAndDrop(data, dragShadowBuilder, targetView, 0)
-            return true
+            val tile: GameTile = targetView.tag as GameTile
+            if (gameViewModel.tileCanBeDragged(tile)) {
+                val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                val tag = "targetView.tag.toString()"
+                Log.i(TAG, "starting drag on $tag")
+                val item = ClipData.Item(tag)
+                val data = ClipData(tag, mimeTypes, item)
+                val dragShadowBuilder = View.DragShadowBuilder(targetView)
+                targetView.startDragAndDrop(data, dragShadowBuilder, targetView, 0)
+                return true
+            } else {
+                ToneGenerator(
+                    AudioManager.STREAM_MUSIC,
+                    100
+                ).startTone(ToneGenerator.TONE_PROP_BEEP, 200)
+            }
         }
         return false
     }
@@ -109,11 +120,38 @@ class GameFragment : Fragment(), View.OnLongClickListener, View.OnDragListener {
 
     }
 
-    override fun onDrag(v: View?, event: DragEvent): Boolean {
+    private var sourceTile: GameTile? = null
+
+    override fun onDrag(v: View, event: DragEvent): Boolean {
         when (event.action) {
-            DragEvent.ACTION_DRAG_STARTED, DragEvent.ACTION_DRAG_ENDED -> return true
+            DragEvent.ACTION_DRAG_STARTED -> {
+                if(null != sourceTile) {
+                    return true
+                }
+                sourceTile = v.tag as GameTile
+                Log.i(TAG, "onDrag STARTED $sourceTile")
+                val y = v.y
+                return true
+            }
+            DragEvent.ACTION_DRAG_LOCATION -> {
+                Log.i(TAG, "onDrag LOCATION")
+                return true
+            }
+            DragEvent.ACTION_DRAG_ENDED -> {
+                Log.i(TAG, "onDrag ENDED")
+                return true
+            }
             DragEvent.ACTION_DROP -> {
+                if(null == sourceTile)
+                    return false
+                val targetTile = v.tag as GameTile
+                Log.i(TAG, "onDrag DROP $sourceTile on $targetTile")
                 gameViewModel.incrementMoveCount()
+                // The target of the drop is NOT the source of the drag. We've saved the source
+                // GameTile in the [DragEvent.ACTION_DRAG_STARTED] code
+                Log.i(TAG, "swapping $sourceTile")
+                gameViewModel.swapTiles(sourceTile!!, targetTile)
+                sourceTile = null
                 return true
             }
             else -> return false

@@ -8,9 +8,11 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pixelmixer.R
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
+import com.virtualtimetours.pixelmixer.PixelMixerApplication
 import com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment
 import java.io.File
 import java.io.FileOutputStream
@@ -25,6 +27,7 @@ class ImageSelectionViewModel : ViewModel(), Target {
     val splashPhotoUrl = MutableLiveData("")
     val splashPhotoPublishDate = MutableLiveData("")
     val attributesVisibility = MutableLiveData(View.GONE)
+    val gameInfoText = MutableLiveData(PixelMixerApplication.context.getString(R.string.info_text_preload))
 
     fun setImage(photo: UnsplashPhoto) {
         unsplashPhoto.postValue(photo)
@@ -38,6 +41,7 @@ class ImageSelectionViewModel : ViewModel(), Target {
         Log.i(TAG, "loaded bitmap")
         imageBitmap.postValue(bitmap)
         attributeButtonVisibility.postValue(View.VISIBLE)
+        gameInfoText.postValue(PixelMixerApplication.context.getString(R.string.info_text_after_load))
     }
 
     override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
@@ -45,7 +49,7 @@ class ImageSelectionViewModel : ViewModel(), Target {
     }
 
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-        Log.i(TAG, "prepar to load")
+        Log.i(TAG, "prepare to load")
     }
 
     companion object {
