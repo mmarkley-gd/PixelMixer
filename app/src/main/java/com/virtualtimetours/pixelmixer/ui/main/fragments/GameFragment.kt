@@ -84,7 +84,7 @@ class GameFragment : Fragment(), View.OnLongClickListener, View.OnDragListener {
         binding.rowFourColumnFour.setOnLongClickListener(this)
 
         imageViewModel.imageBitmap.observe(viewLifecycleOwner) {
-            if(it != null) {
+            if (it != null) {
                 gameViewModel.fractureImage(imageViewModel.imageBitmap.value!!, 4, 4)
             }
         }
@@ -92,7 +92,7 @@ class GameFragment : Fragment(), View.OnLongClickListener, View.OnDragListener {
     }
 
     override fun onLongClick(targetView: View?): Boolean {
-        if(targetView != null) {
+        if (targetView != null) {
             val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
             val tag = "targetView.tag.toString()"
             Log.i(TAG, "starting drag on $tag")
@@ -102,19 +102,26 @@ class GameFragment : Fragment(), View.OnLongClickListener, View.OnDragListener {
             targetView.startDragAndDrop(data, dragShadowBuilder, targetView, 0)
             return true
         }
-       return false
+        return false
     }
-    companion object {
-        val TAG = GameFragment::javaClass.name
+
+    private fun targetCanBeDragged() {
+
     }
 
     override fun onDrag(v: View?, event: DragEvent): Boolean {
-        when(event.action) {
+        when (event.action) {
             DragEvent.ACTION_DRAG_STARTED, DragEvent.ACTION_DRAG_ENDED -> return true
             DragEvent.ACTION_DROP -> {
+                gameViewModel.incrementMoveCount()
                 return true
             }
             else -> return false
         }
     }
+
+    companion object {
+        val TAG = GameFragment::javaClass.name
+    }
+
 }

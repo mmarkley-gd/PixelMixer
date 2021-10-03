@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.totalMoves}"
+                android:text="@{viewModel.totalMovesText}"
                 app:layout_constraintLeft_toRightOf="@+id/total_moves_label"
                 app:layout_constraintTop_toTopOf="parent" />
 

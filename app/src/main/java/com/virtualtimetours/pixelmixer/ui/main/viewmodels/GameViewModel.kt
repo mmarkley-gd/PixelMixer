@@ -13,9 +13,11 @@ import kotlin.random.Random
 
 class GameViewModel : ViewModel() {
 
-    val totalMoves = MutableLiveData("0")
+    var totalMoves = 0
+    val totalMovesText = MutableLiveData("0")
     val elapsedTime = MutableLiveData("1/1/1970")
-    val fragments = MutableLiveData<List<List<BitmapDrawable>>>(listOf())
+    private val gameGrid = MutableLiveData<List<List<GameTile>>>(listOf())
+
     val positionOneOneBitmap = MutableLiveData<BitmapDrawable>(null)
     val positionOneTagValue = MutableLiveData("1")
     val positionOneTwoBitmap = MutableLiveData<BitmapDrawable>(null)
@@ -51,16 +53,17 @@ class GameViewModel : ViewModel() {
 
     val debugDisplayTextVisibility = MutableLiveData(View.VISIBLE)
 
-    var gameTiles: MutableList<GameTile> = mutableListOf()
+    private var gameTiles: MutableList<GameTile> = mutableListOf()
 
     /**
-     * Take the original bitmap and break it into N pieces
+     * Take the original bitmap and break it into N pieces. Do it in a background
+     * thread to not block the UI
      */
     fun fractureImage(bitmap: Bitmap, rows: Int, columns: Int) {
         executor.execute {
             val width = bitmap.width.toDouble()
             val height = bitmap.height.toDouble()
-            val resultsArray = mutableListOf<List<BitmapDrawable>>()
+            val resultsArray = mutableListOf<List<GameTile>>()
             try {
                 var count = 0
                 var rowCount = 0
@@ -73,7 +76,7 @@ class GameViewModel : ViewModel() {
                     if (y >= height) {
                         continue
                     }
-                    Log.i(TAG, "processing row $rowCount")
+//                    Log.i(TAG, "processing row $rowCount")
                     rowCount++
                     var columnCount = 0
                     val targetList = mutableListOf<BitmapDrawable>()
@@ -82,9 +85,8 @@ class GameViewModel : ViewModel() {
                         if (x >= width) {
                             continue
                         }
-                        Log.i(TAG, "processing column $columnCount")
+//                        Log.i(TAG, "processing column $columnCount")
                         columnCount++
-                        // TODO: Fix exception splitting bitmap
                         if (x + horizontalStep > width) {
                             horizontalStep = width - x.toInt()
                         }
@@ -95,7 +97,7 @@ class GameViewModel : ViewModel() {
                         val yCoord = y.toInt()
                         val copyWidth = horizontalStep.toInt()
                         val copyHeight = verticalStep.toInt()
-                        Log.i(TAG, "Creating tile: $tileCount")
+//                        Log.i(TAG, "Creating tile: $tileCount")
                         val smallBitmap =
                             Bitmap.createBitmap(bitmap, xCoord, yCoord, copyWidth, copyHeight)
                         val drawable =
@@ -105,7 +107,6 @@ class GameViewModel : ViewModel() {
                         targetList.add(drawable)
                         x += horizontalStep
                     }
-                    resultsArray.add(targetList.toList())
                     horizontalStep = width / columns
                     verticalStep = height / rows
                     y += verticalStep
@@ -118,11 +119,20 @@ class GameViewModel : ViewModel() {
             while (!newShuffleIsSolvable(shuffled)) {
                 shuffled = shuffleTiles(gameTiles)
             }
+            val rowOne = shuffled.subList(0, 3)
+            val rowTwo = shuffled.subList(4,7)
+            val rowThree = shuffled.subList(8, 11)
+            val rowFour = shuffled.subList(12,15)
+            resultsArray.clear()
+            resultsArray.add(rowOne)
+            resultsArray.add(rowTwo)
+            resultsArray.add(rowThree)
+            resultsArray.add(rowFour)
             updateRowOne(shuffled)
             updateRowTwo(shuffled)
             updateRowThree(shuffled)
             updateRowFour(shuffled)
-            fragments.postValue(resultsArray)
+            gameGrid.postValue(resultsArray)
         }
     }
 
@@ -169,10 +179,12 @@ class GameViewModel : ViewModel() {
     }
 
     fun incrementMoveCount() {
-        totalMoves.postValue(totalMoves.value + 1)
+        totalMoves++
+
+        totalMovesText.postValue(totalMoves.toString())
     }
 
-    fun shuffleTiles(listToShuffle: MutableList<GameTile>): List<GameTile> {
+    private fun shuffleTiles(listToShuffle: MutableList<GameTile>): List<GameTile> {
         val result = mutableListOf<GameTile>()
         result.addAll(listToShuffle)
         var n = result.size
@@ -188,7 +200,7 @@ class GameViewModel : ViewModel() {
         return result
     }
 
-    fun newShuffleIsSolvable(listToCheck: List<GameTile>): Boolean {
+    private fun newShuffleIsSolvable(listToCheck: List<GameTile>): Boolean {
         var countInversions = 0
 
         for (i in 0 until listToCheck.size) {
