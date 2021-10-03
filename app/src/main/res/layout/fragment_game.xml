@@ -60,133 +60,178 @@
 
         <TableLayout
             android:id="@+id/game_board"
-            android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
-            android:layout_marginVertical="@dimen/primary_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/info_layout"
+            android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
+            android:layout_marginVertical="@dimen/primary_vertical_margin"
+            android:weightSum="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-           <TableRow
-               android:id="@+id/row_one"
-               android:layout_weight="4"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <ImageView
-                   android:id="@+id/row_one_column_one"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:contentDescription="@string/row_content"
-                   android:layout_height="wrap_content"/>
-               <ImageView
-                   android:id="@+id/row_one_column_two"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:contentDescription="@string/row_content"
-                   android:layout_height="wrap_content"/>
-               <ImageView
-                   android:id="@+id/row_one_column_three"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:contentDescription="@string/row_content"
-                   android:layout_height="wrap_content"/>
-               <ImageView
-                   android:id="@+id/row_one_column_four"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:contentDescription="@string/row_content"
-                   android:layout_height="wrap_content"/>
-           </TableRow>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_layout">
+
+            <TableRow
+                android:id="@+id/row_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:weightSum="4">
+
+                <ImageView
+                    android:id="@+id/row_one_column_one"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/row_content"
+                    android:src="@{viewModel.positionOneOneBitmap}" />
+
+                <ImageView
+                    android:id="@+id/row_one_column_two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/row_content"
+                    android:src="@{viewModel.positionOneTwoBitmap}" />
+
+                <ImageView
+                    android:id="@+id/row_one_column_three"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/row_content"
+                    android:src="@{viewModel.positionOneThreeBitmap}" />
+
+                <ImageView
+                    android:id="@+id/row_one_column_four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/row_content"
+                    android:src="@{viewModel.positionOneThreeBitmap}" />
+            </TableRow>
+
             <TableRow
                 android:id="@+id/row_two"
-                android:layout_weight="4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:weightSum="4">
+
                 <ImageView
                     android:id="@+id/row_two_column_one"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionTwoOneBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_two_column_two"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionTwoTwoBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_two_column_three"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionTwoThreeBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_two_column_four"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionTwoFourBitmap}" />
             </TableRow>
+
             <TableRow
                 android:id="@+id/row_three"
-                android:layout_weight="4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:weightSum="4">
+
                 <ImageView
                     android:id="@+id/row_three_column_one"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionThreeOneBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_three_column_two"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionThreeTwoBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_three_column_three"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionThreeThreeBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_three_column_four"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionThreeFourBitmap}" />
             </TableRow>
+
             <TableRow
                 android:id="@+id/row_four"
-                android:layout_weight="4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:weightSum="4">
+
                 <ImageView
                     android:id="@+id/row_four_column_one"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionFourOneBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_four_column_two"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionFourTwoBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_four_column_three"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionFourThreeBitmap}" />
+
                 <ImageView
                     android:id="@+id/row_four_column_four"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:contentDescription="@string/row_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@{viewModel.positionFourFourBitmap}" />
             </TableRow>
         </TableLayout>
 
