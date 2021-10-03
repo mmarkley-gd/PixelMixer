@@ -30,7 +30,9 @@ class ImageSelectionFragment : Fragment() {
         }
 
         binding.imageView.setOnClickListener {
-            (activity as MainActivity).navigateToGameScreen()
+            if(null != viewModel.imageBitmap.value) {
+                (activity as MainActivity).navigateToGameScreen()
+            }
         }
 
         viewModel.imageBitmap.observe(viewLifecycleOwner) {
