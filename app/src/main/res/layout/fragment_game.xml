@@ -61,7 +61,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -92,6 +92,8 @@
                         android:tag="@{viewModel.positionOneTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -112,6 +114,8 @@
                         android:tag="@{viewModel.positionTwoTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -132,6 +136,8 @@
                         android:tag="@{viewModel.positionThreeTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -152,6 +158,8 @@
                         android:tag="@{viewModel.positionFourTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -181,6 +189,8 @@
                         android:tag="@{viewModel.positionFiveTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -201,6 +211,8 @@
                         android:tag="@{viewModel.positionSixTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -221,6 +233,8 @@
                         android:tag="@{viewModel.positionSevenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -241,6 +255,8 @@
                         android:tag="@{viewModel.positionEightTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -270,6 +286,8 @@
                         android:tag="@{viewModel.positionNineTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -290,6 +308,8 @@
                         android:tag="@{viewModel.positionTenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -310,6 +330,8 @@
                         android:tag="@{viewModel.positionElevenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -330,6 +352,8 @@
                         android:tag="@{viewModel.positionTwelveTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -359,6 +383,8 @@
                         android:tag="@{viewModel.positionThirteenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -379,6 +405,8 @@
                         android:tag="@{viewModel.positionFourteenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -399,6 +427,8 @@
                         android:tag="@{viewModel.positionFifteenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -419,6 +449,8 @@
                         android:tag="@{viewModel.positionSixteenTagValue}">
 
                         <ImageView
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/row_content"
@@ -432,7 +464,7 @@
                     </RelativeLayout>
                 </TableRow>
             </TableLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
