@@ -37,6 +37,9 @@ class ImageSelectionViewModel : ViewModel(), Target {
         splashPhotoPublishDate.postValue(photo.created_at)
     }
 
+    /**
+     * Callback for Picasso to notify the application that the image has been loaded
+     */
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
         Log.i(TAG, "loaded bitmap")
         imageBitmap.postValue(bitmap)
@@ -44,6 +47,10 @@ class ImageSelectionViewModel : ViewModel(), Target {
         gameInfoText.postValue(PixelMixerApplication.context.getString(R.string.info_text_after_load))
     }
 
+    /**
+     * Callback for Picasso to notify the application that the image load failed for some
+     * reason.
+     */
     override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
         Log.i(TAG, "failed to load bitmap ${e?.message}")
     }
@@ -56,6 +63,9 @@ class ImageSelectionViewModel : ViewModel(), Target {
         val TAG: String = ImageSelectionFragment::javaClass.name
     }
 
+    /**
+     * Method to display the attributions of the image.
+     */
     fun onFABClick() {
         attributesVisibility.postValue(when(attributesVisibility.value) {
             View.VISIBLE -> View.GONE

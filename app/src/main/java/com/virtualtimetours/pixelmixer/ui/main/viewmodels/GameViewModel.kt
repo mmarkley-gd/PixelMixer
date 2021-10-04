@@ -76,6 +76,9 @@ class GameViewModel : ViewModel() {
     val positionSixteenTagValue = MutableLiveData<GameTile>(null)
     val positionSixteenDebugTextValue = MutableLiveData("16")
 
+    val gameWonUIVisible = MutableLiveData(View.GONE)
+    val gameUIVisible = MutableLiveData(View.VISIBLE)
+
     val tileHintsTextVisibility = MutableLiveData(View.VISIBLE)
 
     private var gameTiles: MutableList<GameTile> = mutableListOf()
@@ -132,12 +135,13 @@ class GameViewModel : ViewModel() {
                             Bitmap.createBitmap(bitmap, xCoord, yCoord, copyWidth, copyHeight)
                         val drawable =
                             BitmapDrawable(PixelMixerApplication.context.resources, smallBitmap)
-                        if(null == emptyBitmapDrawable) {
+                        if (null == emptyBitmapDrawable) {
                             val emptyBitmap = Bitmap.createBitmap(smallBitmap)
                             emptyBitmap.eraseColor(Color.WHITE)
-                            emptyBitmapDrawable = BitmapDrawable(PixelMixerApplication.context.resources, emptyBitmap)
+                            emptyBitmapDrawable =
+                                BitmapDrawable(PixelMixerApplication.context.resources, emptyBitmap)
                         }
-                        val gameTile = when(tileCount) {
+                        val gameTile = when (tileCount) {
                             16 -> {
                                 emptyTile = GameTile(emptyBitmapDrawable, tileCount++)
                                 emptyTile
@@ -145,7 +149,7 @@ class GameViewModel : ViewModel() {
                             }
                             else -> GameTile(drawable, tileCount++)
                         }
-                        Log.i(TAG, "created tile $gameTile for index ${tileCount-1}")
+                        Log.i(TAG, "created tile $gameTile for index ${tileCount - 1}")
                         gameTiles.add(gameTile)
                         x += horizontalStep
                     }
@@ -166,7 +170,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun getTimerTask(): TimerTask {
-        return object: TimerTask() {
+        return object : TimerTask() {
             override fun run() {
                 elapsedMilliseconds += 1000
                 val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
@@ -177,6 +181,7 @@ class GameViewModel : ViewModel() {
             }
         }
     }
+
     private fun shuffleTilesToWinnableGame(tiles: List<GameTile>) {
         val tilesToShuffle = mutableListOf<GameTile>()
         val resultsArray = mutableListOf<List<GameTile>>()
@@ -347,6 +352,8 @@ class GameViewModel : ViewModel() {
         for (i in listToCheck.size - 1 downTo 0) {
             if (listToCheck[i].position != (i + 1)) return false
         }
+        gameWonUIVisible.postValue(View.VISIBLE)
+        gameUIVisible.postValue(View.GONE)
         return true
     }
 
@@ -354,6 +361,8 @@ class GameViewModel : ViewModel() {
      * Given the specified [tile], can that [GameTile] be moved? This is based on whether or not
      * Tile 16 is either in the same row as the specified tile, or the same column
      * Returns true if the [GameTile] can be dragged, false otherwise
+     * The current implementation only allows for sliding the tiles immediately adjacent to the
+     * empty spot on the game grid
      */
     fun tileCanBeDragged(tile: GameTile): Boolean {
         val tileRowIndex: Int = getRowIndex(tile)
@@ -361,7 +370,7 @@ class GameViewModel : ViewModel() {
         val emptyTileRowIndex: Int = getRowIndex(emptyTile)
         val emptyTileColumnIndex: Int = getColumnIndex(emptyTile)
 
-        val result = when(tileRowIndex == emptyTileRowIndex
+        val result = when (tileRowIndex == emptyTileRowIndex
                 || tileColumnIndex == emptyTileColumnIndex) {
             true -> {
                 when {
@@ -381,41 +390,59 @@ class GameViewModel : ViewModel() {
             false -> false
         }
 
-        Log.i(TAG, "tileCanBeDragged stri: $tileRowIndex stci: $tileColumnIndex dtri: $emptyTileRowIndex dtci: $emptyTileColumnIndex $result")
+        Log.i(
+            TAG,
+            "tileCanBeDragged stri: $tileRowIndex stci: $tileColumnIndex dtri: $emptyTileRowIndex dtci: $emptyTileColumnIndex $result"
+        )
         return result
     }
 
     fun swapTiles(sourceTile: GameTile, destinationTile: GameTile) {
-        if(destinationTile != emptyTile) {
+        if (destinationTile != emptyTile) {
             return
         }
         val sourceTileRowIndex: Int = getRowIndex(sourceTile)
         val sourceTileColumnIndex: Int = getColumnIndex(sourceTile)
         val destinationTileRowIndex: Int = getRowIndex(destinationTile)
         val destinationTileColumnIndex: Int = getColumnIndex(destinationTile)
-        Log.i(TAG, "swap stri: $sourceTileRowIndex stci: $sourceTileColumnIndex dtri: $destinationTileRowIndex dtci: $destinationTileColumnIndex")
+        Log.i(
+            TAG,
+            "swap stri: $sourceTileRowIndex stci: $sourceTileColumnIndex dtri: $destinationTileRowIndex dtci: $destinationTileColumnIndex"
+        )
         if (sourceTileRowIndex == destinationTileRowIndex) {
             when (sourceTileRowIndex) {
                 1 -> {
-                    Log.i(TAG, "switching row 1 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex")
+                    Log.i(
+                        TAG,
+                        "switching row 1 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex"
+                    )
                     gameBoardRowOne[destinationTileColumnIndex] = sourceTile
                     gameBoardRowOne[sourceTileColumnIndex] = destinationTile
                     updateRowOne(gameBoardRowOne)
                 }
                 2 -> {
-                    Log.i(TAG, "switching row 2 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex")
+                    Log.i(
+                        TAG,
+                        "switching row 2 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex"
+                    )
                     gameBoardRowTwo[destinationTileColumnIndex] = sourceTile
                     gameBoardRowTwo[sourceTileColumnIndex] = destinationTile
                     updateRowTwo(gameBoardRowTwo)
                 }
                 3 -> {
-                    Log.i(TAG, "switching row 3 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex")
+                    Log.i(
+                        TAG,
+                        "switching row 3 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex"
+                    )
                     gameBoardRowThree[destinationTileColumnIndex] = sourceTile
                     gameBoardRowThree[sourceTileColumnIndex] = destinationTile
                     updateRowThree(gameBoardRowThree)
                 }
                 4 -> {
-                    Log.i(TAG, "switching row 4 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex")
+                    Log.i(
+                        TAG,
+                        "switching row 4 tile at $destinationTileColumnIndex with emptyTile at $sourceTileColumnIndex"
+                    )
                     gameBoardRowFour[destinationTileColumnIndex] = sourceTile
                     gameBoardRowFour[sourceTileColumnIndex] = destinationTile
                     updateRowFour(gameBoardRowFour)
@@ -437,7 +464,10 @@ class GameViewModel : ViewModel() {
                 else -> null
             }
             if (destinationRow != null && sourceRow != null) {
-                Log.i(TAG, "moving tile from row $sourceTileRowIndex to row $destinationTileRowIndex")
+                Log.i(
+                    TAG,
+                    "moving tile from row $sourceTileRowIndex to row $destinationTileRowIndex"
+                )
                 destinationRow[destinationTileColumnIndex] = sourceTile
                 sourceRow[sourceTileColumnIndex] = destinationTile
                 when (destinationTileRowIndex) {
@@ -505,14 +535,26 @@ class GameViewModel : ViewModel() {
     }
 
     private fun debugDumpGameGrid() {
-        Log.i(TAG, "Row 1 ${gameBoardRowOne[0].position} ${gameBoardRowOne[1].position} ${gameBoardRowOne[2].position} ${gameBoardRowOne[3].position}")
-        Log.i(TAG, "Row 2 ${gameBoardRowTwo[0].position} ${gameBoardRowTwo[1].position} ${gameBoardRowTwo[2].position} ${gameBoardRowTwo[3].position}")
-        Log.i(TAG, "Row 3 ${gameBoardRowThree[0].position} ${gameBoardRowThree[1].position} ${gameBoardRowThree[2].position} ${gameBoardRowThree[3].position}")
-        Log.i(TAG, "Row 4 ${gameBoardRowFour[0].position} ${gameBoardRowFour[1].position} ${gameBoardRowFour[2].position} ${gameBoardRowFour[3].position}")
+        Log.i(
+            TAG,
+            "Row 1 ${gameBoardRowOne[0].position} ${gameBoardRowOne[1].position} ${gameBoardRowOne[2].position} ${gameBoardRowOne[3].position}"
+        )
+        Log.i(
+            TAG,
+            "Row 2 ${gameBoardRowTwo[0].position} ${gameBoardRowTwo[1].position} ${gameBoardRowTwo[2].position} ${gameBoardRowTwo[3].position}"
+        )
+        Log.i(
+            TAG,
+            "Row 3 ${gameBoardRowThree[0].position} ${gameBoardRowThree[1].position} ${gameBoardRowThree[2].position} ${gameBoardRowThree[3].position}"
+        )
+        Log.i(
+            TAG,
+            "Row 4 ${gameBoardRowFour[0].position} ${gameBoardRowFour[1].position} ${gameBoardRowFour[2].position} ${gameBoardRowFour[3].position}"
+        )
     }
 
     fun toggleTileHints() {
-        when(tileHintsTextVisibility.value == View.VISIBLE) {
+        when (tileHintsTextVisibility.value == View.VISIBLE) {
             true -> tileHintsTextVisibility.postValue(View.GONE)
             else -> tileHintsTextVisibility.postValue(View.VISIBLE)
         }

@@ -15,11 +15,15 @@ import com.unsplash.pickerandroid.photopicker.presentation.UnsplashPickerActivit
 import com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment
 import com.virtualtimetours.pixelmixer.ui.main.viewmodels.ImageSelectionViewModel
 
+/**
+ * This is the only Activity that is created. It uses AndroidX Navigation to control
+ * which part of the UX is visible
+ */
 class MainActivity : AppCompatActivity() {
 
     private var imageViewModel: ImageSelectionViewModel? = null
-    lateinit var binding: MainActivityBinding
-    lateinit var navController: NavController
+    private lateinit var binding: MainActivityBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
     }
 
-    val imagePickerLauncher = registerForActivityResult(
+    private val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) {
         if (Activity.RESULT_OK == it.resultCode) {
@@ -47,13 +51,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * move the UX to the game screen.
+     */
     fun navigateToGameScreen() {
         navController.navigate(R.id.gameFragment)
     }
 
     /**
      * Method used by the [ImageSelectionFragment] to get the Activity to launch
-     * the Unsplash Image Picker
+     * the Unsplash Image Picker. We don't allow multiple selection, just a single
+     * selection for creating puzzles
      */
     fun launchImagePicker(viewModel: ImageSelectionViewModel) {
         imageViewModel = viewModel
