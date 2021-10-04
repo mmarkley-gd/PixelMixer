@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PixelMixer</string>
     <string name="welcome_string">Welcome to PixelMixer</string>
-    <string name="info_text_preload">PixelMixer is an implementation of a 15 puzzle using a user selected image. Click <b>Get Image</b> to select the image that you want to use.</string>
+    <string name="info_text_preload">PixelMixer is an implementation of a 15 puzzle using a user selected image. Click Get Image to select the image that you want to use.</string>
     <string name="info_text_after_load">Click on the image to start the game!</string>
     <string name="retrieve_label">Click here to get some pictures</string>
     <string name="congratulations_text">Congratulations! You have solved the Puzzle</string>

@@ -81,7 +81,7 @@ class GameViewModel : ViewModel() {
 
     val tileHintsTextVisibility = MutableLiveData(View.VISIBLE)
 
-    private var gameTiles: MutableList<GameTile> = mutableListOf()
+    var gameTiles: MutableList<GameTile> = mutableListOf()
 
     private val gameBoardRowOne: MutableList<GameTile> = mutableListOf()
     private val gameBoardRowTwo: MutableList<GameTile> = mutableListOf()
@@ -90,6 +90,7 @@ class GameViewModel : ViewModel() {
 
     private var emptyTile: GameTile? = null
 
+    val fractureComplete = MutableLiveData(false)
     /**
      * Take the original [bitmap] and break it into N based on [rows] and [columns] pieces. Do it
      * in a background thread to not block the UI
@@ -166,6 +167,7 @@ class GameViewModel : ViewModel() {
 
             shuffleTilesToWinnableGame(gameTiles)
 
+            fractureComplete.postValue(true)
         }
     }
 
@@ -529,6 +531,9 @@ class GameViewModel : ViewModel() {
         return -1
     }
 
+    public fun getExcecutor(): ScheduledThreadPoolExecutor {
+        return executor
+    }
     companion object {
         val TAG = GameViewModel::javaClass.name
         val executor = ScheduledThreadPoolExecutor(2)
