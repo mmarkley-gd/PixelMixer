@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
             android:layout_marginVertical="@dimen/primary_vertical_margin"
+            android:padding="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -60,374 +61,378 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TableLayout
-            android:id="@+id/game_board"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/primary_horizontal_margin"
-            android:layout_marginVertical="@dimen/primary_vertical_margin"
-            android:weightSum="4"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/primary_vertical_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_layout">
 
-            <TableRow
-                android:id="@+id/row_one"
+            <TableLayout
+                android:id="@+id/game_board"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:weightSum="4">
+                android:layout_marginHorizontal="@dimen/primary_horizontal_margin">
 
-                <RelativeLayout
-                    android:id="@+id/row_one_column_one"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:id="@+id/row_one"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:tag="@{viewModel.positionOneTagValue}">
+                    android:weightSum="4">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/row_one_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneOneBitmap}" />
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionOneTagValue}">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionOneOneBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionOneDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_one_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionOneDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionTwoTagValue}">
 
-                <RelativeLayout
-                    android:id="@+id/row_one_column_two"
-                    android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionOneTwoBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionTwoDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_one_column_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionThreeTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionOneThreeBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionThreeDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_one_column_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionFourTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionOneFourBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionFourDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row_two"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:tag="@{viewModel.positionTwoTagValue}">
+                    android:weightSum="4">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/row_two_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneTwoBitmap}" />
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionFiveTagValue}">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionTwoOneBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionFiveDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_two_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionTwoDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionSixTagValue}">
 
-                <RelativeLayout
-                    android:id="@+id/row_one_column_three"
-                    android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionTwoTwoBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionSixDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_two_column_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionSevenTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionTwoThreeBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionSevenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_two_column_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionEightTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionTwoFourBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionEightDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row_three"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:tag="@{viewModel.positionThreeTagValue}">
+                    android:weightSum="4">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/row_three_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneThreeBitmap}" />
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionNineTagValue}">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionThreeOneBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionNineDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_three_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionThreeDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionTenTagValue}">
 
-                <RelativeLayout
-                    android:id="@+id/row_one_column_four"
-                    android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionThreeTwoBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionTenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_three_column_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionElevenTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionThreeThreeBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionElevenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_three_column_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionTwelveTagValue}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionThreeFourBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionTwelveDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row_four"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:tag="@{viewModel.positionFourTagValue}">
+                    android:weightSum="4">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/row_four_column_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionOneFourBitmap}" />
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionThirteenTagValue}">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionFourOneBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionThirteenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_four_column_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFourDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-            </TableRow>
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionFourteenTagValue}">
 
-            <TableRow
-                android:id="@+id/row_two"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:weightSum="4">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionFourTwoBitmap}" />
 
-                <RelativeLayout
-                    android:id="@+id/row_two_column_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionFiveTagValue}">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionFourteenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/row_four_column_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionTwoOneBitmap}" />
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionFifteenTagValue}">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionFourThreeBitmap}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionFifteenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/row_four_column_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFiveDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:tag="@{viewModel.positionSixteenTagValue}">
 
-                <RelativeLayout
-                    android:id="@+id/row_two_column_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionSixTagValue}">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/row_content"
+                            android:src="@{viewModel.positionFourFourBitmap}" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionTwoTwoBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionSixDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_two_column_three"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionSevenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionTwoThreeBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionSevenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_two_column_four"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionEightTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionTwoFourBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionEightDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/row_three"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:weightSum="4">
-
-                <RelativeLayout
-                    android:id="@+id/row_three_column_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                android:tag="@{viewModel.positionNineTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionThreeOneBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionNineDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_three_column_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionTenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionThreeTwoBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionTenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_three_column_three"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionElevenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionThreeThreeBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionElevenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_three_column_four"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionTwelveTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionThreeFourBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionTwelveDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/row_four"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:weightSum="4">
-
-                <RelativeLayout
-                    android:id="@+id/row_four_column_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionThirteenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourOneBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionThirteenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_four_column_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionFourteenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourTwoBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFourteenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_four_column_three"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionFifteenTagValue}" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourThreeBitmap}"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionFifteenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/row_four_column_four"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:tag="@{viewModel.positionSixteenTagValue}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/row_content"
-                        android:src="@{viewModel.positionFourFourBitmap}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.positionSixteenDebugTextValue}"
-                        android:visibility="@{viewModel.tileHintsTextVisibility}" />
-                </RelativeLayout>
-            </TableRow>
-        </TableLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.positionSixteenDebugTextValue}"
+                            android:visibility="@{viewModel.tileHintsTextVisibility}" />
+                    </RelativeLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
