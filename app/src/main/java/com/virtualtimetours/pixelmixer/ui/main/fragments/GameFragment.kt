@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.graphics.Canvas
 import android.graphics.Point
-import android.graphics.Rect
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Bundle
@@ -146,16 +145,21 @@ class GameFragment : Fragment(), View.OnTouchListener, View.OnDragListener,
                 Direction.VERTICAL -> view.height.toFloat() * tiles.size
             }
             canvas!!.scale(width, height)
-//            for(tile in tiles) {
-//                val bitmap = tile.bitmap
-//                val rect = Rect(0,0, bitmap.bitmap.width, bitmap.bitmap.height)
-//                canvas.drawBitmap(bitmap.bitmap, rect, null)
-//            }
-            view.draw(canvas)
+            var left = 0.0f
+            var top = 0.0f
+            for(tile in tiles) {
+                val bitmap = tile.bitmap
+                canvas.drawBitmap(bitmap.bitmap, left, top, null)
+                when(direction) {
+                    Direction.HORIZONTAL -> left += bitmap.bitmap.width.toFloat()
+                    Direction.VERTICAL -> top += bitmap.bitmap.height.toFloat()
+                }
+            }
+//            view.draw(canvas)
         }
     }
 
-    var currentDragData : DragData? = null
+    private var currentDragData : DragData? = null
 
     override fun onTouch(targetView: View, event: MotionEvent): Boolean {
         targetView.performClick()
@@ -187,9 +191,6 @@ class GameFragment : Fragment(), View.OnTouchListener, View.OnDragListener,
         return false
     }
 
-    private var startX = -1
-    private var startY = -1
-
     /**
      * Handle DragEvents.
      * returns true if the DragEvent is handled, false otherwise
@@ -197,8 +198,6 @@ class GameFragment : Fragment(), View.OnTouchListener, View.OnDragListener,
     override fun onDrag(v: View, event: DragEvent): Boolean {
         when (event.action) {
             DragEvent.ACTION_DRAG_STARTED -> {
-                startX = v.left
-                startY = v.top
                 return true
             }
             DragEvent.ACTION_DRAG_LOCATION -> {

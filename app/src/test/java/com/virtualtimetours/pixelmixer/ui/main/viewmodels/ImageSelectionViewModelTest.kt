@@ -16,11 +16,11 @@ import org.junit.runner.RunWith
 class ImageSelectionViewModelTest {
     @Rule
     @JvmField
-    public var rule: TestRule = InstantTaskExecutorRule()
+    var rule: TestRule = InstantTaskExecutorRule()
 
-    val initialString = "PixelMixer is an implementation of a 15 puzzle using a user selected image. Click Get Image to select the image that you want to use."
+    private val initialString = "PixelMixer is an implementation of a 15 puzzle using a user selected image. Click Get Image to select the image that you want to use."
 
-    lateinit var viewModelUnderTest : ImageSelectionViewModel
+    private lateinit var viewModelUnderTest : ImageSelectionViewModel
     @Before
     fun setup() {
         viewModelUnderTest = ImageSelectionViewModel()

@@ -18,7 +18,7 @@ class GameViewModelTest {
     @JvmField
     var rule: TestRule = InstantTaskExecutorRule()
 
-    lateinit var viewModelUnderTest: GameViewModel
+    private lateinit var viewModelUnderTest: GameViewModel
     @Before
     fun setUp() {
         viewModelUnderTest = GameViewModel()
@@ -40,7 +40,7 @@ class GameViewModelTest {
                 val gameTile = viewModelUnderTest.positionEightTagValue.value
                 assertNotNull(gameTile)
                 assertEquals(8, gameTile!!.position)
-                assertNotNull(gameTile!!.bitmap)
+                assertNotNull(gameTile.bitmap)
                 assertEquals(16, viewModelUnderTest.gameTiles.size)
                 assertEquals(View.VISIBLE, viewModelUnderTest.gameUIVisible.value)
                 assertEquals(View.GONE, viewModelUnderTest.gameWonUIVisible.value)

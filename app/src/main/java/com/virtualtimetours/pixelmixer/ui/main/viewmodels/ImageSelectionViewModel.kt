@@ -2,27 +2,20 @@ package com.virtualtimetours.pixelmixer.ui.main.viewmodels
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pixelmixer.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
 import com.virtualtimetours.pixelmixer.PixelMixerApplication
 import com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment
-import java.io.File
-import java.io.FileOutputStream
-import java.util.*
 
 class ImageSelectionViewModel : ViewModel(), Target {
 
     val imageBitmap = MutableLiveData<Bitmap?>(null)
-    val unsplashPhoto = MutableLiveData<UnsplashPhoto>(null)
     val attributeButtonVisibility = MutableLiveData(View.GONE)
     val splashPhotographerName = MutableLiveData("")
     val splashPhotoUrl = MutableLiveData("")
@@ -40,7 +33,6 @@ class ImageSelectionViewModel : ViewModel(), Target {
     fun setImage(photo: UnsplashPhoto) {
         progressVisibility.postValue(View.VISIBLE)
         bitmapLoadError.postValue(false)
-        unsplashPhoto.postValue(photo)
         Picasso.get().load(photo.urls.full).into(this)
         splashPhotographerName.postValue(photo.user.name)
         splashPhotoUrl.postValue(photo.urls.full)
