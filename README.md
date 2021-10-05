@@ -11,7 +11,7 @@ https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe135
 ## Portrait Only
 - The rotation of the screen results in a very bad looking UI. I've locked the app into portrait
   mode for now.
-- There are limits on image size. The app won't load bitmaps over an arbitrary size of 86936160 bytes
+- There are limits on image size. The app won't load bitmaps over an arbitrary size of 86936160 bytes.
   It will display an error message if the bitmap is too large
 - Only tiles directly adjacent to the empty tile can be dragged. It is not possible to move multiple
   tiles at one time
