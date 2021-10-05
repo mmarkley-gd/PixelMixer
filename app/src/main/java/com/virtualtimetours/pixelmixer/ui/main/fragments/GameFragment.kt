@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.graphics.Canvas
 import android.graphics.Point
+import android.graphics.Rect
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Bundle
@@ -145,6 +146,11 @@ class GameFragment : Fragment(), View.OnTouchListener, View.OnDragListener,
                 Direction.VERTICAL -> view.height.toFloat() * tiles.size
             }
             canvas!!.scale(width, height)
+//            for(tile in tiles) {
+//                val bitmap = tile.bitmap
+//                val rect = Rect(0,0, bitmap.bitmap.width, bitmap.bitmap.height)
+//                canvas.drawBitmap(bitmap.bitmap, rect, null)
+//            }
             view.draw(canvas)
         }
     }

@@ -378,7 +378,7 @@ class GameViewModel : ViewModel() {
         val emptyTileRowIndex: Int = getRowIndex(emptyTile)
         val emptyTileColumnIndex: Int = getColumnIndex(emptyTile)
 
-        if(tile == emptyTile!!) {
+        if (tile == emptyTile!!) {
             return null
         }
         val result = when (tileRowIndex == emptyTileRowIndex
@@ -396,12 +396,12 @@ class GameViewModel : ViewModel() {
                                 }
                             }
                             else -> {
-                                for (i in (emptyTileColumnIndex -1) downTo tileColumnIndex) {
+                                for (i in (emptyTileColumnIndex - 1) downTo tileColumnIndex) {
                                     tileSet.add(targetRow?.get(i)!!)
                                 }
                             }
                         }
-                        if(tileSet.size > 0) {
+                        if (tileSet.size > 0) {
                             DragData(tileSet, GameFragment.Direction.HORIZONTAL)
                         } else {
                             null
@@ -411,20 +411,20 @@ class GameViewModel : ViewModel() {
                         val count = emptyTileRowIndex - tileRowIndex
                         when (count.sign) {
                             -1 -> {
-                                for (i in tileRowIndex downTo (emptyTileRowIndex + 1)) {
+                                for (i in (emptyTileRowIndex + 1)..tileRowIndex) {
                                     val row = getRow(i)
                                     tileSet.add(row?.get(tileColumnIndex)!!)
                                 }
                             }
                             else -> {
-                               for(i in tileRowIndex until emptyTileRowIndex) {
-                                   val row = getRow(i)
-                                   tileSet.add(row?.get(tileColumnIndex)!!)
-                               }
+                                for (i in (emptyTileRowIndex - 1) downTo tileRowIndex) {
+                                    val row = getRow(i)
+                                    tileSet.add(row?.get(tileColumnIndex)!!)
+                                }
 
                             }
                         }
-                        if(tileSet.size > 0) {
+                        if (tileSet.size > 0) {
                             DragData(tileSet, GameFragment.Direction.VERTICAL)
                         } else {
                             null
@@ -446,12 +446,15 @@ class GameViewModel : ViewModel() {
     }
 
     fun swapMultipleTiles(dragData: DragData) {
-        for(tile in dragData.list) {
+        for (tile in dragData.list) {
             val row = getRowIndex(tile)
             val column = getColumnIndex(tile)
             val emptyRow = getRowIndex(emptyTile!!)
             val emptyColumn = getColumnIndex(emptyTile!!)
-            Log.i(TAG, "swap tile: row $row column $column empty: row $emptyRow column $emptyColumn")
+            Log.i(
+                TAG,
+                "swap tile: row $row column $column empty: row $emptyRow column $emptyColumn"
+            )
             swapTiles(tile, emptyTile!!)
         }
     }
