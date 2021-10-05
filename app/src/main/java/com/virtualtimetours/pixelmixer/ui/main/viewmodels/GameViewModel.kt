@@ -8,10 +8,13 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.virtualtimetours.pixelmixer.PixelMixerApplication
+import com.virtualtimetours.pixelmixer.data.DragData
 import com.virtualtimetours.pixelmixer.ui.main.GameTile
+import com.virtualtimetours.pixelmixer.ui.main.fragments.GameFragment
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ScheduledThreadPoolExecutor
+import kotlin.math.sign
 import kotlin.random.Random
 
 /**
@@ -91,6 +94,7 @@ class GameViewModel : ViewModel() {
     private var emptyTile: GameTile? = null
 
     val fractureComplete = MutableLiveData(false)
+
     /**
      * Take the original [bitmap] and break it into N based on [rows] and [columns] pieces. Do it
      * in a background thread to not block the UI
@@ -368,40 +372,91 @@ class GameViewModel : ViewModel() {
      * The current implementation only allows for sliding the tiles immediately adjacent to the
      * empty spot on the game grid
      */
-    fun tileCanBeDragged(tile: GameTile): Boolean {
+    fun tileCanBeDragged(tile: GameTile): DragData? {
         val tileRowIndex: Int = getRowIndex(tile)
         val tileColumnIndex: Int = getColumnIndex(tile)
         val emptyTileRowIndex: Int = getRowIndex(emptyTile)
         val emptyTileColumnIndex: Int = getColumnIndex(emptyTile)
 
+        if(tile == emptyTile!!) {
+            return null
+        }
         val result = when (tileRowIndex == emptyTileRowIndex
                 || tileColumnIndex == emptyTileColumnIndex) {
             true -> {
+                val tileSet = mutableListOf<GameTile>()
                 when {
                     tileRowIndex == emptyTileRowIndex -> {
-                        ((tileColumnIndex + 1) == emptyTileColumnIndex
-                                || (tileColumnIndex - 1) == emptyTileColumnIndex)
+                        val targetRow = getRow(tileRowIndex)
+                        val count = emptyTileColumnIndex - tileColumnIndex
+                        when (count.sign) {
+                            -1 -> {
+                                for (i in (emptyTileColumnIndex + 1)..tileColumnIndex) {
+                                    tileSet.add(targetRow?.get(i)!!)
+                                }
+                            }
+                            else -> {
+                                for (i in (emptyTileColumnIndex -1) downTo tileColumnIndex) {
+                                    tileSet.add(targetRow?.get(i)!!)
+                                }
+                            }
+                        }
+                        if(tileSet.size > 0) {
+                            DragData(tileSet, GameFragment.Direction.HORIZONTAL)
+                        } else {
+                            null
+                        }
                     }
                     tileColumnIndex == emptyTileColumnIndex -> {
-                        (tileRowIndex + 1 == emptyTileRowIndex
-                                || tileRowIndex - 1 == emptyTileRowIndex)
+                        val count = emptyTileRowIndex - tileRowIndex
+                        when (count.sign) {
+                            -1 -> {
+                                for (i in tileRowIndex downTo (emptyTileRowIndex + 1)) {
+                                    val row = getRow(i)
+                                    tileSet.add(row?.get(tileColumnIndex)!!)
+                                }
+                            }
+                            else -> {
+                               for(i in tileRowIndex until emptyTileRowIndex) {
+                                   val row = getRow(i)
+                                   tileSet.add(row?.get(tileColumnIndex)!!)
+                               }
+
+                            }
+                        }
+                        if(tileSet.size > 0) {
+                            DragData(tileSet, GameFragment.Direction.VERTICAL)
+                        } else {
+                            null
+                        }
                     }
                     else -> {
-                        false
+                        null
                     }
                 }
             }
-            false -> false
+            false -> null
         }
 
         Log.i(
             TAG,
-            "tileCanBeDragged stri: $tileRowIndex stci: $tileColumnIndex dtri: $emptyTileRowIndex dtci: $emptyTileColumnIndex $result"
+            "tileCanBeDragged stri: $tileRowIndex stci: $tileColumnIndex dtri: $emptyTileRowIndex dtci: $emptyTileColumnIndex ${null == result}"
         )
         return result
     }
 
-    fun swapTiles(sourceTile: GameTile, destinationTile: GameTile) {
+    fun swapMultipleTiles(dragData: DragData) {
+        for(tile in dragData.list) {
+            val row = getRowIndex(tile)
+            val column = getColumnIndex(tile)
+            val emptyRow = getRowIndex(emptyTile!!)
+            val emptyColumn = getColumnIndex(emptyTile!!)
+            Log.i(TAG, "swap tile: row $row column $column empty: row $emptyRow column $emptyColumn")
+            swapTiles(tile, emptyTile!!)
+        }
+    }
+
+    private fun swapTiles(sourceTile: GameTile, destinationTile: GameTile) {
         if (destinationTile != emptyTile) {
             return
         }
@@ -501,6 +556,16 @@ class GameViewModel : ViewModel() {
         debugDumpGameGrid()
     }
 
+    private fun getRow(index: Int): MutableList<GameTile>? {
+        return when (index) {
+            1 -> gameBoardRowOne
+            2 -> gameBoardRowTwo
+            3 -> gameBoardRowThree
+            4 -> gameBoardRowFour
+            else -> null
+        }
+    }
+
     private fun getRowIndex(tile: GameTile?): Int {
         if (gameBoardRowOne.contains(tile)) {
             return 1
@@ -533,9 +598,6 @@ class GameViewModel : ViewModel() {
         return -1
     }
 
-    public fun getExcecutor(): ScheduledThreadPoolExecutor {
-        return executor
-    }
     companion object {
         val TAG = GameViewModel::javaClass.name
         val executor = ScheduledThreadPoolExecutor(2)
