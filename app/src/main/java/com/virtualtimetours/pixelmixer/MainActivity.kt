@@ -6,10 +6,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.pixelmixer.R
 import com.example.pixelmixer.databinding.MainActivityBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
 import com.unsplash.pickerandroid.photopicker.presentation.UnsplashPickerActivity
 import com.virtualtimetours.pixelmixer.ui.main.fragments.ImageSelectionFragment
@@ -65,6 +67,17 @@ class MainActivity : AppCompatActivity() {
      */
     fun launchImagePicker(viewModel: ImageSelectionViewModel) {
         imageViewModel = viewModel
+        viewModel.bitmapLoadError.observe(this) {
+            if (it) {
+                val dialogBuilder = MaterialAlertDialogBuilder(this)
+                dialogBuilder.setMessage(R.string.bitmap_alert_text)
+                dialogBuilder.setNegativeButton(R.string.negative_button_text) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                viewModel.clearLoadError()
+                dialogBuilder.create().show()
+            }
+        }
         val intent = UnsplashPickerActivity.getStartingIntent(
             this, // context
             false

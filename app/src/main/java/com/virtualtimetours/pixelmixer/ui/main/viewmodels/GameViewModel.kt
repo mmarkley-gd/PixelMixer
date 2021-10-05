@@ -79,7 +79,7 @@ class GameViewModel : ViewModel() {
     val gameWonUIVisible = MutableLiveData(View.GONE)
     val gameUIVisible = MutableLiveData(View.VISIBLE)
 
-    val tileHintsTextVisibility = MutableLiveData(View.VISIBLE)
+    val tileHintsTextVisibility = MutableLiveData(View.GONE)
 
     var gameTiles: MutableList<GameTile> = mutableListOf()
 
@@ -97,6 +97,8 @@ class GameViewModel : ViewModel() {
      */
     fun fractureImage(bitmap: Bitmap, rows: Int, columns: Int) {
         executor.execute {
+            gameWonUIVisible.postValue(View.GONE)
+            gameUIVisible.postValue(View.VISIBLE)
             gameTiles.clear()
             val width = bitmap.width.toDouble()
             val height = bitmap.height.toDouble()

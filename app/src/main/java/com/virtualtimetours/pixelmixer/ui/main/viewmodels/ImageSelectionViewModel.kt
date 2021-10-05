@@ -9,6 +9,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pixelmixer.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
@@ -27,9 +28,18 @@ class ImageSelectionViewModel : ViewModel(), Target {
     val splashPhotoUrl = MutableLiveData("")
     val splashPhotoPublishDate = MutableLiveData("")
     val attributesVisibility = MutableLiveData(View.GONE)
+    val progressVisibility = MutableLiveData(View.GONE)
     val gameInfoText = MutableLiveData(PixelMixerApplication.context.getString(R.string.info_text_preload))
 
+    val bitmapLoadError = MutableLiveData(false)
+
+    fun clearLoadError() {
+        bitmapLoadError.postValue(false)
+    }
+
     fun setImage(photo: UnsplashPhoto) {
+        progressVisibility.postValue(View.VISIBLE)
+        bitmapLoadError.postValue(false)
         unsplashPhoto.postValue(photo)
         Picasso.get().load(photo.urls.full).into(this)
         splashPhotographerName.postValue(photo.user.name)
@@ -41,7 +51,14 @@ class ImageSelectionViewModel : ViewModel(), Target {
      * Callback for Picasso to notify the application that the image has been loaded
      */
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-        Log.i(TAG, "loaded bitmap")
+        progressVisibility.postValue(View.GONE)
+        if(null == bitmap) {
+            return
+        }
+        if(bitmap.byteCount > 86936160) {
+            bitmapLoadError.postValue(true)
+            return
+        }
         imageBitmap.postValue(bitmap)
         attributeButtonVisibility.postValue(View.VISIBLE)
         gameInfoText.postValue(PixelMixerApplication.context.getString(R.string.info_text_after_load))
@@ -52,6 +69,8 @@ class ImageSelectionViewModel : ViewModel(), Target {
      * reason.
      */
     override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
+        progressVisibility.postValue(View.GONE)
+        bitmapLoadError.postValue(true)
         Log.i(TAG, "failed to load bitmap ${e?.message}")
     }
 
